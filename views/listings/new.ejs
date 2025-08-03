@@ -1,24 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wanderlust</title>
-</head>
+<% layout('layouts/boilerplate') %>
 <body>
-    <h2>Add a new listing</h2>
-    <form action="/listing" method="post">
-        <input type="text" name="listing[title]" placeholder="Enter Title">
+    <div class="row mt-2">
+        <div class="col-8 offset-2">
+            <br> <br>
+        <h2 class="text-center">Create a new listing</h2>
+        <form action="/listing" method="post">
+        <div class="mb-3">
+
+            <label for="title" class="form-label">Title</label>
+            <input id="title" type="text" name="listing[title]" placeholder="Add a catchy title" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" name="listing[description]" type="text" class="form-control"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Image Link</label>
+            <input type="text" name="listing[image.url]" id="image" placeholder="Enter image link/URL" class="form-control">
+        </div>
+        <div class="row ">
+            <div class="mb-3 col-md-3">
+            <label for="price" class="form-label" >Price</label>
+            <input id="price" class="form-control" type="number" name="listing[price]" placeholder="Enter price in USD">
+        </div>
+            <div class="mb-3 col-md-9">
+            <label for="country" class="form-label" >Country</label>
+            <input id="country" class="form-control" type="text" name="listing[country]" >
+        </div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="location" class="form-label" >Location</label>
+            <input id="location" class="form-control" type="text" name="listing[location]" >
+        </div>
+        <button class="btn btn-dark add-btn mt-2">Submit</button>
         <br><br>
-        <textarea name="listing[description]" type="text" placeholder="Enter the desc"></textarea>
-        <br><br>
-        <input type="text" name="listing[price]" placeholder="Enter price">
-        <br><br>
-        <input type="text" name="listing[location]" placeholder="Enter Location">
-        <br><br>
-        <input type="text" name="listing[country]" placeholder="Enter country">
-        <br><br>
-        <button>Submit</button>
     </form>
+    </div>
+    </div>
 </body>
-</html>
