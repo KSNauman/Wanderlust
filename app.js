@@ -121,6 +121,12 @@ app.delete("/listing/:id",wrapAsync(async (req,res)=>{
     res.redirect("/listing");
 }))
 
+// Reviews module
+// app.post("/listing/:id/reviews",wrapAsync(async(req,res)=>{
+    
+// }))
+
+
 app.all(/.*/,(req,res,next)=>{
    next(new ExpressError(404,"Page not found"));
 })
