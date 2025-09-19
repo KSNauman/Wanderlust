@@ -1,5 +1,10 @@
+const express = require("express");
+const ExpressError = require("./utils/ExpressError");
+const {listingSchema} = require("./Schema.js");
 const Listing = require("./models/listing");
 const Review = require("./models/review");
+const {reviewSchema} = require("./Schema.js");
+
 
 module.exports.isLoggedIn = (req, res, next) => {
     // console.log(req.user);
@@ -39,6 +44,29 @@ module.exports.isAuthor = async(req, res, next) => {
     if (!review.author.equals(res.locals.currUser._id)) {
         req.flash("error", "You're not the owner");
         return res.redirect(`/listing/${id}`);
+    }
+    next();
+}
+module.exports.validateListing = (req,res,next)=>{
+    // this is validating errors using joi on server side for listings
+    // Listing validation
+    let {error} = listingSchema.validate(req.body);
+    if(error){
+        errMsg = error.details.map((el) => el.message).join(",");   
+        throw new ExpressError(400, errMsg);
+    }
+    next();
+}
+
+module.exports.validateReview = (req,res,next)=>{
+    // this is validating errors using joi on server side for reviews 
+    // review validations
+    let {error} = reviewSchema.validate(req.body);
+    if(error){
+        console.log(error);
+        
+        errMsg = error.details.map((el) => el.message).join(",");   
+        throw new ExpressError(400, errMsg);
     }
     next();
 }
