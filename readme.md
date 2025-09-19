@@ -89,3 +89,11 @@ Nauman — GitHub: `https://github.com/KSNauman`
 ---
 
 **Progress: BACKEND largely implemented; FRONTEND polish, AUTH, TESTS and DEPLOYMENT are still pending (ETA ~10–15 days).**
+
+views - view engine uses views folder to look up the ejs templates
+- includes : folder to store the repeted parts of ui like navbar 
+- error : folder to display the error 
+- layouts : folder to store the boilerplate
+- listings : folder to store all the listings ejs
+- users : folder to store all the users ejs 
+public - public folder is used by express , it uses this folder to serve the static files 

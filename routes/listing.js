@@ -4,6 +4,7 @@ const ExpressError = require("../utils/ExpressError");
 const router = express.Router();
 const Listing = require("../models/listing");
 const {listingSchema} = require("../Schema.js");
+const {isLoggedIn , isOwner} = require("../middleware");
 
 
 // this is validating errors using joi on server side for listings
@@ -25,30 +26,40 @@ router.get("/",wrapAsync(async(req,res)=>{
 }))
 
 //new route
-router.get("/new", (req,res)=>{
+router.get("/new",isLoggedIn, (req,res)=>{
+    
     res.render("listings/new.ejs");
 })
 /*specific route must be before than parameterized route */
 // show route
 router.get("/:id",wrapAsync(async (req,res)=>{
     let {id} = req.params;
-    let post = await Listing.findById(id).populate("reviews");
+    let post = await Listing.findById(id).populate("reviews").populate("owner");
     if(!post){
         req.flash("error","Listing you requested is Not Found");
         res.redirect("/listing");
         return;
     }
+    // console.log("post: ",post);
+    // console.log(res.locals.currUser);
+    
     res.render("listings/show.ejs",{post});
 }))
 // create route
 router.post("",validateListing,wrapAsync(async (req,res)=>{
     let newListing = new Listing(req.body.listing);
+    console.log(req.user);
+    
+    newListing.owner = req.user._id;
     await newListing.save();
     req.flash("success","New Listing Created!");
     res.redirect(`/listing/${newListing.id}`);
 }))
 // edit route
-router.get("/:id/edit",wrapAsync(async (req,res)=>{
+router.get("/:id/edit",
+    isLoggedIn,
+    isOwner,
+    wrapAsync(async (req,res)=>{
     let {id} = req.params;
     let post = await Listing.findById(id);
     if (!post) {
@@ -64,8 +75,19 @@ router.get("/:id/edit",wrapAsync(async (req,res)=>{
 }))
 
 // update listing route
-router.put("/:id",validateListing,wrapAsync(async (req,res)=>{
+router.put("/:id",
+    isLoggedIn,
+    isOwner,
+    validateListing,wrapAsync(async (req,res)=>{
     let {id} = req.params;
+    let listing = await Listing.findById(id);
+    
+    if(!listing.owner.equals(res.locals.currUser._id)){
+        req.flash("error","You're not the owner");
+        return res.redirect(`/listing/${id}`);
+    }
+
+
     let updatedListing = await Listing.findByIdAndUpdate(id,req.body.listing , {new:true});
     // console.log(updatedListing);
     
@@ -78,7 +100,10 @@ router.put("/:id",validateListing,wrapAsync(async (req,res)=>{
 }))
 
 // delete route
-router.delete("/:id",wrapAsync(async (req,res)=>{
+router.delete("/:id",
+    isLoggedIn,
+    isOwner,
+    wrapAsync(async (req,res)=>{
     let {id} = req.params;
     let deletedListing = await Listing.findByIdAndDelete(id);
     res.redirect("/listing");
