@@ -34,7 +34,9 @@ router.get("/new",isLoggedIn, (req,res)=>{
 // show route
 router.get("/:id",wrapAsync(async (req,res)=>{
     let {id} = req.params;
-    let post = await Listing.findById(id).populate("reviews").populate("owner");
+    let post = await Listing.findById(id).populate({path:"reviews",populate:{ path : "author"}}).populate("owner");
+    // console.log(post);
+    
     if(!post){
         req.flash("error","Listing you requested is Not Found");
         res.redirect("/listing");
@@ -48,7 +50,7 @@ router.get("/:id",wrapAsync(async (req,res)=>{
 // create route
 router.post("",validateListing,wrapAsync(async (req,res)=>{
     let newListing = new Listing(req.body.listing);
-    console.log(req.user);
+    // console.log(req.user);
     
     newListing.owner = req.user._id;
     await newListing.save();

@@ -1,5 +1,5 @@
 const Listing = require("./models/listing");
-
+const Review = require("./models/review");
 
 module.exports.isLoggedIn = (req, res, next) => {
     // console.log(req.user);
@@ -27,6 +27,18 @@ module.exports.isOwner = async(req, res, next) => {
         req.flash("error", "You're not the owner");
         return res.redirect(`/listing/${id}`);
     }
-
+    next();
+}
+module.exports.isAuthor = async(req, res, next) => {
+    let { id , reviewId} = req.params;
+    // console.log("authro id :",authorId);
+    
+    let review = await Review.findById(reviewId);
+    // console.log(review);
+    
+    if (!review.author.equals(res.locals.currUser._id)) {
+        req.flash("error", "You're not the owner");
+        return res.redirect(`/listing/${id}`);
+    }
     next();
 }
