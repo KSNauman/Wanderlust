@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -7,6 +11,7 @@ const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync");
 const ExpressError = require("./utils/ExpressError");
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -20,8 +25,15 @@ const userRouter = require("./routes/user");
 // console.log("wa typeof :", typeof wrapAsync);
 // console.log("ee typeof :", ExpressError?.name);
 
+const dburl = process.env.ATLAS_DB;
+// console.log(dburl);
 
 
+async function main() {
+    // await mongoose.connect( "mongodb://127.0.0.1:27017/wanderlust")
+    await mongoose.connect(dburl)
+    // await mongoose.connect( "mongodb+srv://Champion:VBJIHFNnZ9Kgc3RX@cluster0.87veb1i.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+}
 
 main().then(()=>{
     console.log("Connected to DB");
@@ -29,9 +41,6 @@ main().then(()=>{
     console.log(err);
 })
 
-async function main() {
-    await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust")
-}
 
 app.listen(8080,(req,res)=>{
     console.log("Server is listening at port 8080");
@@ -43,8 +52,21 @@ app.use(methodOverride("_method"));
 app.engine("ejs",ejsMate);
 app.use(express.static(path.join(__dirname,"public")));
 
+const store = MongoStore.create({
+    mongoUrl:dburl,
+    crypto: {
+    secret: process.env.SECRET,
+    },
+    touchAfter : 24* 60 * 60
+})
+
+store.on("error",()=>{
+    console.log("session store error",err);
+});
+
 const sessionOptions = {
-    secret : "mysupersecretcode",
+    store,
+    secret : process.env.SECRET,
     resave : false,
     saveUninitialized : true,   
     cookie:{
@@ -55,13 +77,6 @@ const sessionOptions = {
     
 };
 
-
-
-
-
-app.get("/",(req,res)=>{
-    res.send("Hi , this is root");
-})
 // always use these in above of routes
 app.use(session(sessionOptions));
 app.use(flash());

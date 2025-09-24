@@ -1,87 +1,125 @@
-body{
+body {
     font-family: "Plus Jakarta Sans", sans-serif !important;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
-.container{
+
+.container {
     flex: 1;
 }
 
-.navbar{
+#edit-img {
+    height: 150px;
+    width: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.navbar {
     height: 5rems;
     background: white;
 }
-.fa-compass{
+
+.fa-compass {
     color: #fe424d;
     font-size: 2rem;
 }
-.nav-link{
+
+.nav-link {
     color: #222222 !important;
 }
-.f-info-links a{
+
+.f-info-links a {
     text-decoration: none;
     color: #222222;
 }
-.f-info-links a:hover{
+
+.f-info-links a:hover {
     text-decoration: underline;
 }
-.f-info-links, .f-info-socials, .f-info-brand{
+
+.f-info-links,
+.f-info-socials,
+.f-info-brand {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
 }
-.f-info-socials i{
+
+.f-info-socials i {
     font-size: 1.2rem;
     margin-right: 1rem;
 }
-.f-info{
+
+.f-info {
     text-align: center;
     height: 8rem;
     background-color: #ebebeb;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    
+
     align-items: space-evenly;
 }
-.f-info > div {
-  margin-bottom: 0.5rem;
+
+.f-info>div {
+    margin-bottom: 0.5rem;
 }
+
 /* card */
-.listing-card{
+.listing-card {
     border: none !important;
     margin-bottom: 2rem;
     /* padding-bottom: 2rem; */
 }
-.card-img-top{
+
+.card-img-top {
     height: 20rem !important;
     border-radius: 1rem !important;
     width: 100% !important;
     object-fit: cover !important;
 }
-.card-body{
+
+.card-body {
     padding: 0 !important;
 }
-.card-text{
+
+.card-text {
     font-weight: 400 !important;
 }
-.listing-link{
+
+.listing-link {
     text-decoration: none !important;
 }
-.card-img-overlay{
+
+.card-img-overlay {
     opacity: 0;
 }
-.card-img-overlay:hover{
+
+.card-img-overlay:hover {
     opacity: 0.2;
     background-color: white;
 }
-.add-btn{
+
+.add-btn {
     background-color: #fe424d !important;
     border: none !important;
 }
-.show-btn{
+
+.show-btn {
     margin: 0 auto !important;
+}
+
+/* maps */
+#map {
+    border-radius: 5%;
+    height: 400px;
+    width: 80vh;
+}
+
+.nav-link.nav-text{
+    font-weight: 550;
 }

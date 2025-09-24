@@ -97,3 +97,7 @@ views - view engine uses views folder to look up the ejs templates
 - listings : folder to store all the listings ejs
 - users : folder to store all the users ejs 
 public - public folder is used by express , it uses this folder to serve the static files 
+
+**Future scome**
+- add categories
+- enhance geocoding

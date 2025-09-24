@@ -12,9 +12,8 @@ const listingSchema = new mongoose.Schema({
   },
   description: String,
   img: {
-    type: String,
-    default: defaultImg,
-    set: (v) => (v === "" ? defaultImg : v),
+    url : String,
+    filename : String,
   },
   price: Number,
   location: String,
@@ -26,6 +25,17 @@ const listingSchema = new mongoose.Schema({
   owner : {
     type: mongoose.Schema.Types.ObjectId,
     ref : "User"
+  },
+  geometry:{
+    type: {
+      type: String, // Don't do `{ location: { type: String } }`
+      enum: ['Point'], // 'location.type' must be 'Point'
+      required: true
+    },
+    coordinates: {
+      type: [Number],
+      required: true
+    }
   }
 });
 
