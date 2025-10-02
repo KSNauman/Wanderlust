@@ -32,7 +32,7 @@ const dburl = process.env.ATLAS_DB;
 async function main() {
     // await mongoose.connect( "mongodb://127.0.0.1:27017/wanderlust")
     await mongoose.connect(dburl)
-    // await mongoose.connect( "mongodb+srv://Champion:VBJIHFNnZ9Kgc3RX@cluster0.87veb1i.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+    
 }
 
 main().then(()=>{
@@ -98,14 +98,6 @@ app.use((req,res,next)=>{
     next();
 })
 
-app.get("/demouser", async(req,res)=>{
-    let fakeuser = new User({
-        email:"abc@gmail.com",
-        username : "Abc",
-    });
-    let registeredUser = await User.register(fakeuser,"Hello world");
-    res.send(registeredUser);
-})
 
 app.use("/listing", listings);
 app.use("/listing/:id/reviews",reviews);
@@ -115,12 +107,14 @@ app.use("/",userRouter);
 
 
 app.all(/.*/,(req,res,next)=>{
+    // console.log("Original url",req.originalUrl);
+    
    next(new ExpressError(404,"Page not found"));
 })
 // the most error occuring part 
 app.use((err,req,res,next)=>{
-    // console.log(err);
     console.log(err);
+    // console.log(err.message);
     
     let {status = 500 , message = "Something went wrong"} = err;
     res.status(status).render("error/error.ejs",{message});

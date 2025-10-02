@@ -8,6 +8,7 @@
             location : joi.string().required(),
             country: joi.string().required(),
             img : joi.string().allow("",null),
+            category : joi.string().valid("Trending","Rooms","Iconic cities","Mountains","Castles","Amazing pools","Camping","Farms","Arctic","Boats")
         }).required()
     })
     module.exports.reviewSchema = joi.object({

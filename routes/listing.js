@@ -1,7 +1,7 @@
 const express = require("express");
 const wrapAsync = require("../utils/wrapAsync");
 const router = express.Router();
-const {isLoggedIn , isOwner , validateListing} = require("../middleware");
+const {isLoggedIn , isOwner , validateListing,searchListing} = require("../middleware");
 const listingController = require("../controllers/listing");
 
 const multer  = require('multer')
@@ -16,6 +16,12 @@ router.get("/",
 router.get("/new",
     isLoggedIn,
     listingController.renderNewForm)
+
+// search route
+router.get("/search",wrapAsync(listingController.searchListing))
+
+// category route 
+router.get("/category/:categ",wrapAsync(listingController.categoryListing))
 
 // show route , update listing route , delete route
 router.route("/:id")
@@ -41,5 +47,7 @@ router.get("/:id/edit",
     isLoggedIn,
     isOwner,
     wrapAsync(listingController.renderEditForm))
+
+
 
 module.exports = router;

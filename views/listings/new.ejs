@@ -24,19 +24,36 @@
             <input type="file" name="listing[img]" class="form-control">
             <div class="valid-feedback">Looks good!</div>
         </div>
-        <div class="row ">
-            <div class="mb-3 col-md-3">
-            <label for="price" class="form-label" >Price</label>
-            <input id="price" class="form-control" type="number" name="listing[price]" placeholder="Enter price in USD" required>
-            <div class="valid-feedback">Looks good!</div>
-            <div class="invalid-feedback">Please provide price </div>
-        </div>
-            <div class="mb-3 col-md-9">
-            <label for="country" class="form-label" >Country</label>
-            <input id="country" class="form-control" type="text" name="listing[country]" required>
-            <div class="valid-feedback">Looks good!</div>
-            <div class="invalid-feedback">Please provide country </div>
-        </div>
+            <div class="row ">
+                <div class="mb-3 col-md-3">
+                    <label for="price" class="form-label" >Price</label>
+                    <input id="price" class="form-control" type="number" name="listing[price]" placeholder="Enter price in USD" required>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please provide price </div>
+                </div>
+                <div class="mb-3 col-md-5">
+                    <label for="country" class="form-label" >Country</label>
+                    <input id="country" class="form-control" type="text" name="listing[country]" required>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please provide country </div>
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label for="category" class="form-label" >category</label>
+                    <select name="listing[category]" class="form-control " id="category" required>
+                        <option value="Trending" >Trending</option>
+                        <option value="Rooms">Rooms</option>
+                        <option value="Iconic cities">Iconic cities</option>
+                        <option value="Mountains">Mountains</option>
+                        <option value="Castles">Castles</option>
+                        <option value="Amazing pools">Amazing pools</option>
+                        <option value="Camping">Camping</option>
+                        <option value="Farms">Farms</option>
+                        <option value="Arctic">Arctic</option>
+                        <option value="Boats">Boats</option>
+                    </select>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please provide category </div>
+                </div>
         </div>
         
         <div class="mb-3">

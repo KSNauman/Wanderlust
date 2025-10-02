@@ -38,6 +38,23 @@
                 <div class="valid-feedback">Looks good!</div>
                 <div class="invalid-feedback">Please provide country </div>
             </div>
+            <div class="mb-3 col-md-4">
+                    <label for="category" class="form-label" >category</label>
+                    <select name="listing[category]" class="form-control " value="<%= post.category %>" id="category" required>
+                        <option value="Trending" <%= post.category==="Trending"?"selected":"" %>>Trending</option>
+                        <option value="Rooms" <%= post.category==="Rooms"?"selected":"" %>>Rooms</option>
+                        <option value="Iconic cities" <%= post.category==="Iconic cities"?"selected":""%>>Iconic cities</option>
+                        <option value="Mountains" <%= post.category==="Mountains"?"selected":""%> >Mountains</option>
+                        <option value="Castles" <%= post.category==="Castles"?"selected":""%>>Castles</option>
+                        <option value="Amazing pools" <%= post.category==="Amazing pools"?"selected":""%>>Amazing pools</option>
+                        <option value="Camping" <%= post.category==="Camping"?"selected":""%>>Camping</option>
+                        <option value="Farms" <%= post.category==="Farms"?"selected":""%>>Farms</option>
+                        <option value="Arctic" <%= post.category==="Arctic"?"selected":""%> >Arctic</option>
+                        <option value="Boats" <%= post.category==="Boats"?"selected":""%> >Boats</option>
+                    </select>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please provide category </div>
+                </div>
         </div>
         <div class="mb-3">
             <label for="location" class="form-label" >Location</label>

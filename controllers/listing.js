@@ -107,3 +107,24 @@ module.exports.destroyListing = async (req,res)=>{
     let deletedListing = await Listing.findByIdAndDelete(id);
     res.redirect("/listing");
 }
+module.exports.searchListing = async (req,res)=>{
+    let {q} = req.query;
+    if(!q){
+        return res.redirect("/listing");
+    }
+    let Allposts = await Listing.find({ title: { $regex: q, $options: "i" }});
+    res.render("listings/index",{Allposts});
+}
+module.exports.categoryListing = async(req,res)=>{
+    let {categ} = req.params;
+    let Allposts = await Listing.find({category:categ})
+    
+    if(!Allposts || Allposts.length === 0){
+        req.flash("error","No Listing Found");
+        return res.redirect("/listing");
+    }
+
+    res.render("listings/index",{Allposts});
+    
+}
+// module.exports.searchListing = async(req,res)
