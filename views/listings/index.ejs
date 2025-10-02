@@ -142,11 +142,8 @@
     <script>
         let taxtoggle = document.getElementById("flexSwitchCheckDefault");
         taxtoggle.addEventListener("click",()=>{
-            // console.log("Clicked");
             let taxInfo = document.getElementsByClassName("tax-info")
-            console.log(taxInfo);
             for(info of taxInfo){
-                console.log(info.style.display);
                 
                 if(info.style.display != "inline"){
                     info.style.display = "inline";
